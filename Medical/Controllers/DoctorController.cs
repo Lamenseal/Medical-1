@@ -24,7 +24,6 @@ namespace Medical.Controllers
         }
         public IActionResult Index(CKeyWordViewModel vModel)     //醫生後台主頁
         {
-
             IEnumerable<Doctor> datas = null;
             if (string.IsNullOrEmpty(vModel.txtKeyword))
             {
@@ -67,9 +66,9 @@ namespace Medical.Controllers
             IEnumerable<Doctor> datas = null;
             if (string.IsNullOrEmpty(vModel.txtKeyword))
             {
-                datas = from t in _db.Doctors
-                        join d in _db.Departments on t.DepartmentId equals d.DepartmentId
-                        select t;
+                datas = from doc in _db.Doctors
+                        join d in _db.Departments on doc.DepartmentId equals d.DepartmentId
+                        select doc;
             }
             else
             {

@@ -53,51 +53,51 @@ namespace Medical.Controllers
             return Content(count, "text/plain", System.Text.Encoding.UTF8);
         }
 
-        public void Method(CClinicDetailViewModel cVM) {
-            var result = _medicalContext.ClinicDetails.Where(x => x.ClinicDetailId.Equals(cVM.clinicDetailId));
-            var resultDoctor = _medicalContext.Doctors.Where(x => x.DoctorName.Equals(cVM.doctorname)).SingleOrDefault();
-            cVM.DoctorId = resultDoctor.DoctorId;
-            cVM.DepartmentId = resultDoctor.DepartmentId;
+        //public void Method(CClinicDetailViewModel cVM) {
+        //    var result = _medicalContext.ClinicDetails.Where(x => x.ClinicDetailId.Equals(cVM.clinicDetailId));
+        //    var resultDoctor = _medicalContext.Doctors.Where(x => x.DoctorName.Equals(cVM.doctorname)).SingleOrDefault();
+        //    cVM.DoctorId = resultDoctor.DoctorId;
+        //    cVM.DepartmentId = resultDoctor.DepartmentId;
 
-            if (result.Count() > 0)
-            { 
-                Update(cVM);
-            }
-            else
-            {
-                Create(cVM);
-            }
-        }
+        //    if (result.Count() > 0)
+        //    { 
+        //        Update(cVM);
+        //    }
+        //    else
+        //    {
+        //        Create(cVM);
+        //    }
+        //}
 
-        public void Create(CClinicDetailViewModel cVM) 
-        {
-            ClinicDetail c = new ClinicDetail()
-            {
-                DoctorId = cVM.DoctorId,
-                DepartmentId = cVM.DepartmentId,
-                PeriodId = cVM.periodID,
-                RoomId = cVM.roomID,
-                Online = 0,
-                ClinicDate = cVM.date
-            };
+        //public void Create(CClinicDetailViewModel cVM) 
+        //{
+        //    ClinicDetail c = new ClinicDetail()
+        //    {
+        //        DoctorId = cVM.DoctorId,
+        //        DepartmentId = cVM.DepartmentId,
+        //        PeriodId = cVM.periodID,
+        //        RoomId = cVM.roomID,
+        //        Online = 0,
+        //        ClinicDate = cVM.date
+        //    };
 
-            _medicalContext.ClinicDetails.Add(c);
-            _medicalContext.SaveChanges();
+        //    _medicalContext.ClinicDetails.Add(c);
+        //    _medicalContext.SaveChanges();
 
-        }
-        public void Update(CClinicDetailViewModel cVM)
-        {
-            ClinicDetail clinicDetail = _medicalContext.ClinicDetails.Where(x => x.ClinicDetailId.Equals(cVM.clinicDetailId)).FirstOrDefault();
+        //}
+        //public void Update(CClinicDetailViewModel cVM)
+        //{
+        //    ClinicDetail clinicDetail = _medicalContext.ClinicDetails.Where(x => x.ClinicDetailId.Equals(cVM.clinicDetailId)).FirstOrDefault();
             
-            if(clinicDetail != null)
-            {
-                clinicDetail.DoctorId = cVM.DoctorId;
-                clinicDetail.PeriodId = cVM.periodID;
-                clinicDetail.RoomId = cVM.roomID;
-                clinicDetail.ClinicDate = cVM.date;
-                _medicalContext.SaveChanges();
-            }
-        }
+        //    if(clinicDetail != null)
+        //    {
+        //        clinicDetail.DoctorId = cVM.DoctorId;
+        //        clinicDetail.PeriodId = cVM.periodID;
+        //        clinicDetail.RoomId = cVM.roomID;
+        //        clinicDetail.ClinicDate = cVM.date;
+        //        _medicalContext.SaveChanges();
+        //    }
+        //}
 
         public IActionResult doctorList()
         {

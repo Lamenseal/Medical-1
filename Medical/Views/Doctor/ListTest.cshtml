@@ -1,13 +1,48 @@
-﻿@*@model Medical.ViewModels.CDoctorDetailViewModel*@
-@model IEnumerable<Medical.Models.Doctor>
+﻿@model IEnumerable<Medical.Models.Doctor>
 @{
     ViewData["Title"] = "ListTest";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>ListTest</h1>
+@section css{ 
+    <style>
+        .listFCN {
+            color: #366ba8;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .listFCS {
+            font-size: 12px;
+            height: 18px;
+            line-height: 18px;
+            margin-bottom: 6px;
+            overflow: hidden;
+        }
+        .listFCC {
+            color: #666666;
+            font-size: 12px;
+            height: 54px;
+            line-height: 18px;
+            overflow: hidden;
+        }
+        .container img {
+            width: 100%;
+        }
+        .body {
+            font-size: 12px;
+            font-family: "微軟正黑體";
+            font-weight: bold;
+        }
+        .listFCP {
+            font-size: 0px;
+            line-height: 0px;
+            margin-bottom: 10px;
+        }
+    </style>
+}
+<h1>醫療團隊</h1>
 @*@using (Html.BeginForm())
-    {
+{
         <div class="row">
             <div class="col-md-4">
                 <form asp-action="depEdit">
@@ -29,35 +64,38 @@
                     </div>
                 </form>
             </div>
-        </div>*@
+        </div>
+        }*@
 @using (Html.BeginForm())
 {
 @:關鍵字 @Html.TextBox("txtKeyword")
-<input type="submit" value="查詢" />}
-}@{ int count = 0;
+<input type="submit" value="查詢" />
+}
+@{ int count = 0;
     foreach (var item in Model)
     {
         count++;
-        <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s" style="float:left">
-            <div class="team-item">
+        <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s" style="float:left;width:20%;">
+            <div class="team-item" style="padding: 0 9px 25px 9px;">
                 <div class="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                    <h4 class="mb-2">@Html.DisplayFor(modelItem => item.DoctorName)</h4>
-                    <p class="text-primary mb-0">醫生</p>
-                </div>
-                <div class="position-relative rounded-top  container" style="z-index: 1;">
-                    <img id="img" class="img-fluid rounded-top w-100" src="~/img/@Html.DisplayFor(modelItem => item.PicturePath)" style="width:640px;height:480px;">
-                    <div class="container">
-                        <h5 class="title">@Html.DisplayFor(modelItem => item.JobTitle)</h5>
-                        <h5> @Html.DisplayFor(modelItem => item.Education).</h5>
-                    </div>
-                    @*<div class="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                            <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-twitter fw-normal"></i></a>
-                            <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
-                            <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
-                            <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-instagram fw-normal"></i></a>
-                        </div>*@
-                </div>
 
+                    @*<p class="text-primary mb-0">醫生</p>*@
+                </div>
+                <div class="position-relative rounded-top  container listFCP" style="z-index: 1;">
+                    <img id="img" class="img-fluid rounded-top w-100" src="~/images/@Html.DisplayFor(modelItem => item.PicturePath)" style="width:204px;height:204px;">
+
+                    @*<div class="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
+                <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-twitter fw-normal"></i></a>
+                <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
+                <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
+                <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-instagram fw-normal"></i></a>
+            </div>*@
+                </div>
+                <div class="container">
+                    <div class="listFCN">@Html.DisplayFor(modelItem => item.DoctorName)</div>
+                    <div class="listFCS">@Html.DisplayFor(modelItem => item.JobTitle)</div>
+                    <div class="listFCC"> @Html.DisplayFor(modelItem => item.Education)</div>
+                </div>
             </div>
         </div>
     }
