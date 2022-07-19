@@ -5,14 +5,22 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Admin_Layout.cshtml";
 }
-
-<h1>醫生主頁(後台)</h1>
+@section styles{
+    <style>
+    </style>
+}
+<h1>醫生後台</h1>
 @using (Html.BeginForm())
 {
-    @:關鍵字 @Html.TextBox("txtKeyword")
-    <input type="submit" value="查詢" />
+    <select id="select1"></select>
+    <select id="select2"></select>
+    @*@:關鍵字 @Html.TextBox("txtKeyword")*@
+    <input id="txtKeyword" hidden="hidden" type="text" name="txtKeyword" value="" />
+    <input type="submit" value="查詢" />    
 }
+@*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
 
+@*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
 <p>
     @Html.ActionLink("新增醫師帳戶", "CreateDetail")
 </p>
@@ -32,8 +40,12 @@
             <th>
                 職位
             </th>
-
-            <th></th>
+            <th>
+                專長
+            </th>
+            <th>
+                管理
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -57,10 +69,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.JobTitle)
                     </td>
-
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department.DeptName)
+                    </td>
                     <td>
                         @Html.ActionLink("管理醫師評論", "DoctorRatinglist", new { id = item.DoctorId }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("修改資料", "EditDetail", new { id = item.DoctorId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("修改資料", "EditDetail", new { id = item.DoctorId }, new { @class = "btn btn-secondary" })
                         @Html.ActionLink("顯示資料", "Details", new { id = item.DoctorId }, new { @class = "btn btn-success" })
                         @Html.ActionLink("刪除", "Delete", new { id = item.DoctorId }, new { onclick = "return confirm('確定刪除?')", @class = "btn btn-danger" })
                     </td>
@@ -69,3 +83,46 @@
         }
     </tbody>
 </table>
+@section Scripts{
+
+    <script>
+
+        const selDepN = document.querySelector('#select1');
+        const selDoc = document.querySelector('#select2');
+        
+        selDepN.addEventListener("change", () => {
+            loadDoc();
+        })
+        loadDep();
+        selDoc.addEventListener("change", () => {
+            selectedDoc = selDoc.options[selDoc.selectedIndex].value;
+            $("#txtKeyword").val(selectedDoc) 
+        })
+        @*讀取專長選單*@
+        async function loadDep() {
+            $("#select1").empty();
+            const deps = await fetch('@Url.Content("~/Admin/AdminDoctor/Dep")').then(response => response.json())
+            deps.forEach((DeptName) => {
+                const opt = new Option(DeptName, DeptName);
+                selDepN.options.add(opt);
+
+
+            })
+            loadDoc()
+        }
+        @*讀取醫生選單*@
+        async function loadDoc() {
+            selectedDep = selDepN.options[selDepN.selectedIndex].value;
+                       
+            $("#select2").empty();
+            const doctors = await fetch('@Url.Content("~/Admin/AdminDoctor/Doc")'+`?depName=${selectedDep}`).then(response => response.json());
+            doctors.forEach((DoctorName) => {
+                const opt1 = new Option(DoctorName, DoctorName);
+                selDoc.options.add(opt1);
+            })
+            selectedDoc = selDoc.options[selDoc.selectedIndex].value;
+            $("#txtKeyword").val(selectedDoc) 
+        }
+
+    </script>
+}

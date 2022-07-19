@@ -16,7 +16,6 @@ namespace Medical.Controllers
     {
         private IWebHostEnvironment _enviroment;
         private readonly MedicalContext _db;
-        int role = 2;                        //權限
         public DoctorController(IWebHostEnvironment p, MedicalContext db)
         {
             _enviroment = p;

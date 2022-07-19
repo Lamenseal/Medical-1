@@ -9,7 +9,6 @@ namespace Medical.ViewModels
         private Doctor _doc;
         private Department _dep;
         private Experience _exp;
-        private DepartmentCategory _depC;
         private Member _memb;
         public CDoctorDetailViewModel()
         {
@@ -116,7 +115,7 @@ namespace Medical.ViewModels
 
 
         public IFormFile photo { get; set; }
-        [DisplayName("身分證字號")]
+        [DisplayName("身分證字號/登入帳號")]
         public string IdentityID
         {
             get { return _memb.IdentityId; }

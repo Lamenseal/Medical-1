@@ -38,6 +38,17 @@ namespace Medical.Areas.Admin.Controllers
             }
             return View(datas);
         }
+        public IActionResult Dep()
+        {
+            var deps = _db.Departments.Select(a => a.DeptName).Distinct();
+            return Json(deps);
+        }
+        public IActionResult Doc(string depName)
+        {
+            Department seleddep = _db.Departments.FirstOrDefault(b => b.DeptName == depName);
+            var docNs = _db.Doctors.Where(d => d.DepartmentId == seleddep.DepartmentId).Select(b => b.DoctorName).Distinct();
+            return Json(docNs);
+        }
         public IActionResult CreateDetail()           //新增醫生資料
         {
             return View();
@@ -93,7 +104,7 @@ namespace Medical.Areas.Admin.Controllers
             CDoctorDetailViewModel prod = new CDoctorDetailViewModel();
             prod.doctor = _db.Doctors.FirstOrDefault(t => t.DoctorId == id);
             Department dep = _db.Departments.FirstOrDefault(t => t.DepartmentId == prod.doctor.DepartmentId);
-            DepartmentCategory depC = null;
+            
             if (dep != null)
             {
                 prod.department = dep;
