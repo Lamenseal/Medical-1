@@ -10,12 +10,16 @@ namespace Medical.ViewModels
         private Department _dep;
         private Experience _exp;
         private Member _memb;
+        private Treatment _trt;
+        private TreatmentDetail _trtD;
         public CDoctorDetailViewModel()
         {
             _doc = new Doctor();
             _dep = new Department();
             _exp = new Experience();
             _memb = new Member();
+            _trt = new Treatment();
+            _trtD = new TreatmentDetail();
         }
         public Member member
         {
@@ -36,6 +40,16 @@ namespace Medical.ViewModels
         {
             get { return _exp; }
             set { _exp = value; }
+        }
+        public Treatment treatment
+        {
+            get { return _trt; }
+            set { _trt = value; }
+        }
+        public TreatmentDetail treatmentDetail
+        {
+            get { return _trtD; }
+            set { _trtD = value; }
         }
 
         public int DoctorID
@@ -138,6 +152,26 @@ namespace Medical.ViewModels
         {
             get { return _memb.Role; }
             set { _memb.Role = value; }
+        }
+        public int TreatmentID
+        {
+            get { return _trt.TreatmentId; }
+            set { _trt.TreatmentId = value; }
+        }
+        public int? TreatmentDetailID
+        {
+            get { return _trt.TreatmentDetailId; }
+            set { _trt.TreatmentDetailId = value; }
+        }
+        //public int TreatmentDetailID
+        //{
+        //    get { return _trtD.TreatmentDetailId; }
+        //    set { _trtD.TreatmentDetailId = value; }
+        //}
+        public string TreatmentDetail1
+        {
+            get { return _trtD.TreatmentDetail1; }
+            set { _trtD.TreatmentDetail1 = value; }
         }
 
     }

@@ -21,9 +21,9 @@
 @*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
 
 @*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
-<p>
-    @Html.ActionLink("新增醫師帳戶", "CreateDetail")
-</p>
+<a href='@Url.Action("CreateDetail","AdminDoctor")'>
+    <button class="btn btn-primary">新增醫生資料</button>
+</a>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -31,7 +31,7 @@
                 序
             </th>
             <th>
-                醫生姓名)
+                醫生姓名
             </th>
 
             <th>
@@ -40,8 +40,9 @@
             <th>
                 職位
             </th>
+            
             <th>
-                專長
+                載入圖片
             </th>
             <th>
                 管理
@@ -57,9 +58,7 @@
                     <td>
                         @count
                     </td>
-                    <td>
-                        <img width="100" height="100" src="~/images/@Html.DisplayFor(modelItem => item.PicturePath)" />"
-                        <br>
+                    <td>                        
                         @Html.DisplayFor(modelItem => item.DoctorName)
                     </td>
 
@@ -69,13 +68,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.JobTitle)
                     </td>
+                    
                     <td>
-                        @Html.DisplayFor(modelItem => item.Department.DeptName)
+                        <img width="100" height="100" src="~/images/@Html.DisplayFor(modelItem => item.PicturePath)" />"                        
                     </td>
                     <td>
                         @Html.ActionLink("管理醫師評論", "DoctorRatinglist", new { id = item.DoctorId }, new { @class = "btn btn-primary" })
                         @Html.ActionLink("修改資料", "EditDetail", new { id = item.DoctorId }, new { @class = "btn btn-secondary" })
-                        @Html.ActionLink("顯示資料", "Details", new { id = item.DoctorId }, new { @class = "btn btn-success" })
                         @Html.ActionLink("刪除", "Delete", new { id = item.DoctorId }, new { onclick = "return confirm('確定刪除?')", @class = "btn btn-danger" })
                     </td>
                 </tr>

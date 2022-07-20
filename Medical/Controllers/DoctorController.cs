@@ -76,19 +76,61 @@ namespace Medical.Controllers
             }
             return View(datas);
         }
-        public IActionResult getDep()    //開發中 Department選單
+        //public IActionResult getDep()    //開發中 Department選單
+        //{
+        //    var dep = _db.Departments.Select(a => a.DeptName).Distinct();
+        //    return Json(dep);
+        //}
+        //public IActionResult getDoc(string depName)   //開發中 Department選單
+        //{
+        //    Department depN = _db.Departments.FirstOrDefault(b => b.DeptName == depName);
+        //    var doc = _db.Doctors.Where(d => d.DepartmentId == depN.DepartmentId).Select(b => b.DoctorName).Distinct();
+        //    return Json(doc);
+        //}
+        public IActionResult getTreatment(int? dcID)
         {
-            var dep = _db.Departments.Select(a => a.DeptName).Distinct();
-            return Json(dep);
+            var trt = from a in _db.Treatments
+                      join b in _db.TreatmentDetails on a.TreatmentDetailId equals b.TreatmentDetailId
+                      where a.DoctorId == dcID
+                      select b.TreatmentDetail1;
+            
+            return Json(trt);
         }
-        public IActionResult getDoc(string depName)   //開發中 Department選單
+        //public IActionResult getTreatmentDetail(int? trtID)
+        //{
+        //    Treatment trt = _db.Treatments.FirstOrDefault(b => b.TreatmentId == trtID);
+        //    var trtD = _db.TreatmentDetails.Where(d => d.TreatmentDetailId == trt.TreatmentDetailId).Select(b => b.TreatmentDetail1).Distinct();
+        //    return Json(trtD);
+        //}
+        public IActionResult Detail(int? id)
         {
-            Department depN = _db.Departments.FirstOrDefault(b => b.DeptName == depName);
-            var doc = _db.Doctors.Where(d => d.DepartmentId == depN.DepartmentId).Select(b => b.DoctorName).Distinct();
-            return Json(doc);
+            if (id == null)
+            {
+                return RedirectToAction("ListTest");
+            }
+            CDoctorDetailViewModel prod = new CDoctorDetailViewModel();
+            Doctor DD = _db.Doctors.FirstOrDefault(t => t.DoctorId == id);
+            Experience exp = _db.Experiences.FirstOrDefault(t => t.DoctorId == id);
+            Treatment trt = _db.Treatments.FirstOrDefault(t => t.DoctorId == id);
+            
+            prod.doctor = DD;
+            if (DD.DepartmentId != null)
+                prod.department = _db.Departments.FirstOrDefault(t => t.DepartmentId == prod.doctor.DepartmentId);
+            if (exp != null)
+                prod.experience = _db.Experiences.FirstOrDefault(t => t.DoctorId == prod.doctor.DoctorId);
+            if (trt != null)
+            {
+                prod.treatment = trt;
+                TreatmentDetail trtD = _db.TreatmentDetails.FirstOrDefault(t => t.TreatmentDetailId == trt.TreatmentDetailId);
+                if (trtD != null)
+                prod.treatmentDetail = _db.TreatmentDetails.FirstOrDefault(t => t.TreatmentDetailId == prod.treatment.TreatmentDetailId);
+            }
+            
+            if (prod == null)
+                return RedirectToAction("Index");
+            
+            return View(prod);
         }
-
-
         //==========冠名==========
         //瀏覽醫生評論
         //id寫死
