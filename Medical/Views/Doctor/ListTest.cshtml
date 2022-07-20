@@ -47,10 +47,12 @@
         .input-selector {
             outline: none;
             border: none;
+            
         }
 
         .muti-selector {
             width: max-content;
+            float: left;
         }
 
         .select-field {
@@ -120,7 +122,7 @@
         </div>
         <div class="list">
             <label for="" class="task">
-                <input type="checkbox" class="check" id="c"/>
+                <input type="checkbox" class="check" onclick="CCC()" name="123" id="c"/>
                 全選
             </label>
         </div>
@@ -197,7 +199,7 @@
     <script>
 
         @*選單下拉*@
-    document.querySelector('.select-field').addEventListener('click', () => {
+        document.querySelector('.select-field').addEventListener('click', () => {
         document.querySelector('.list').classList.toggle('show');
         document.querySelector('.down-arrow').classList.toggle('rotate180')
     })
@@ -205,13 +207,11 @@
         //document.querySelector('.check').addEventListener('checked', () => {
         //    loadDoc()
         //})
-        const ccc = document.querySelector('.task');
-        ccc.addEventListener('change', () => {
-            if (ccc.checked)
-                console.log("事件成功");
-            else
-                console.log("Uncheck");
-        });
+        function CCC() {
+            console.log($(event.target)[0].name)
+            
+        }
+       
         @*讀取專長選單*@
         async function loadDep() {
 
@@ -219,7 +219,7 @@
             deps.forEach((DeptName) => {
                 console.log(DeptName)
                 name =`<label for="" class="task">
-                <input type="checkbox" class="check" name="${DeptName}" value="${DeptName}"/>
+                <input type="checkbox" class="check" onclick="CCC()" id="${DeptName}" name="${DeptName}" value="${DeptName}"/>
                 ${DeptName}
             </label>`;
                 document.querySelector('.list').innerHTML += name;
@@ -227,7 +227,7 @@
 
         }
         @*讀取TreatmentDetail*@
-        @*async function loadTrTD() {
+        async function loadTrTD() {
                 docID = this.name;
                 const trtDs = await fetch('@Url.Content("~/doctor/getTreatment")' + `?dcID=${docID}`).then(response => response.json());
                 trtDs.forEach((TreatmentDetail) => {
@@ -235,7 +235,7 @@
                     document.querySelector(`#${docID}`).textContent= name;
                 })
 
-        }*@
+        }
     </script>
 }
 
