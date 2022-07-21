@@ -129,11 +129,17 @@ namespace Medical.ViewModels
 
 
         public IFormFile photo { get; set; }
-        [DisplayName("身分證字號/登入帳號")]
+        [DisplayName("身分證字號")]
         public string IdentityID
         {
             get { return _memb.IdentityId; }
             set { _memb.IdentityId = value; }
+        }
+        [DisplayName("信箱/帳號")]
+        public string Email
+        {
+            get { return _memb.Email; }
+            set { _memb.Email = value; }
         }
         [DisplayName("密碼")]
         public string Password
