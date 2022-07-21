@@ -12,7 +12,9 @@
 <h1>醫生後台</h1>
 @using (Html.BeginForm())
 {
-    <select id="select1"></select>
+    <select id="select1">
+        <option>全選</option>
+    </select>
     <select id="select2"></select>
     @*@:關鍵字 @Html.TextBox("txtKeyword")*@
     <input id="txtKeyword" hidden="hidden" type="text" name="txtKeyword" value="" />

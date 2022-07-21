@@ -71,8 +71,9 @@ namespace Medical.Controllers
             }
             else
             {
-                datas = _db.Doctors.Where(t => t.DoctorName.Contains(vModel.txtKeyword) ||
-                t.Education.Contains(vModel.txtKeyword) || t.JobTitle.Contains(vModel.txtKeyword));
+                datas = _db.Doctors.Where(t => t.DoctorName.Contains(vModel.txtKeyword));
+                //||
+                //t.Education.Contains(vModel.txtKeyword) || t.JobTitle.Contains(vModel.txtKeyword));
             }
             return View(datas);
         }
@@ -130,6 +131,10 @@ namespace Medical.Controllers
                 return RedirectToAction("Index");
             
             return View(prod);
+        }
+        public IActionResult SugDoc() {
+            
+            return View();
         }
         //==========冠名==========
         //瀏覽醫生評論

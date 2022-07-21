@@ -3,21 +3,22 @@
 @{
     ViewData["Title"] = "Details";
 }
-@section css{ 
-<style>
-    .det{
-        float:left;
-        width: 800px;
-    }
-    /*.col-sm-2 {
-        font-weight: bold;
-        font-family: Microsoft JhengHei;
-    }*/
-</style>
+@section css{
+    <style>
+        .det {
+            float: left;
+            width: 800px;
+        }
+
+        .row {
+            font-size: 20px !important;
+        }
+    </style>
 }
+
 <h1>醫生詳細資料</h1>
 <input type="hidden" id="DoctorID" name="DoctorID" value="@Model.DoctorID">
-<div>    
+<div>
     <hr />
     <dl class="row det">
         <dt class="col-sm-2">
@@ -52,19 +53,22 @@
             @Html.DisplayFor(model => model.DepName)
         </dd>
         <dd class="col-sm-10" id="trtD">
-           專業治療項目:
+            專業治療項目:
         </dd>
+
     </dl>
 </div>
-<img class="pic" src="~/images/@Html.DisplayFor(model => model.PicturePath)" width="450" height="450" />
+<button class="btn btn-success btn-sm">我要掛號</button>
 <div>
-    @*@Html.ActionLink("修改資料", "EditDetail", new { id = Model.DoctorID }) |
-        @Html.ActionLink("醫師評論", "RatingDoctor", new { id = Model.DoctorID })*@ |      @*導入RatingDoctor*@
-        <a asp-action="ListTest">回到醫師主頁</a>
-    </div>
-@section Scripts{ 
+    <input type="button" onclick="location.href='@Url.Action("ListTest","Doctor")'" value="返回醫生" class="btn btn-info btn-sm" />
+</div>
+
+<img class="pic" src="~/images/@Html.DisplayFor(model => model.PicturePath)" width="450" height="450" />
+<br />
+
+@section Scripts{
     <script>
-        
+
         loadTrTD();
         async function loadTrTD()
         {
@@ -74,8 +78,8 @@
                     name = TreatmentDetail1+"/"
                     document.querySelector("#trtD").innerHTML += name;
             })
-                
-        }        
-        
+
+        }
+
     </script>
 }
