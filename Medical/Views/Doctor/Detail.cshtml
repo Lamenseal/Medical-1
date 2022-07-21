@@ -52,20 +52,23 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DepName)
         </dd>
+        <dt class="col-sm-2">
+            治療項目:
+        </dt>
         <dd class="col-sm-10" id="trtD">
-            專業治療項目:
+
         </dd>
 
     </dl>
 </div>
+
+
+<img class="pic" src="~/images/@Html.DisplayFor(model => model.PicturePath)" width="450" height="450" />
+<br />
 <button class="btn btn-success btn-sm">我要掛號</button>
 <div>
     <input type="button" onclick="location.href='@Url.Action("ListTest","Doctor")'" value="返回醫生" class="btn btn-info btn-sm" />
 </div>
-
-<img class="pic" src="~/images/@Html.DisplayFor(model => model.PicturePath)" width="450" height="450" />
-<br />
-
 @section Scripts{
     <script>
 
