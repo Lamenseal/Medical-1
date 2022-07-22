@@ -76,6 +76,11 @@
             border-radius: 25px 25px 25px 25px;
             margin: 10px 5px 10px 5px;
         }
+        .icon{
+            width:16px;
+            height:16px;
+            margin-bottom:9px;
+        }
     </style>
 }
 <h1>醫生後台</h1>
@@ -108,14 +113,16 @@
     </div>
     <input id="txtKeyword" hidden="hidden" type="text" name="txtKeyword" value="" />
     <input type="submit" id="sub" value="查詢" />
-
+    <a href='@Url.Action("CreateDetail","AdminDoctor")'>
+        <button class="btn btn-primary">
+            <img class="icon" src="~/img/add.png" />新增醫生
+        </button>
+    </a>
 }
 @*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
 
 @*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*@
-<a href='@Url.Action("CreateDetail","AdminDoctor")'>
-    <button class="btn btn-primary">新增醫生資料</button>
-</a>
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -166,7 +173,7 @@
                     </td>
                     <td>
                         @Html.ActionLink("管理醫師評論", "DoctorRatinglist", new { id = item.DoctorId }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("修改資料", "EditDetail", new { id = item.DoctorId }, new { @class = "btn btn-secondary" ,@src = "~/img/pencel" })
+                        @Html.ActionLink("修改資料", "EditDetail", new { id = item.DoctorId }, new { @class = "btn btn-secondary" })
                         @Html.ActionLink("刪除", "Delete", new { id = item.DoctorId }, new { onclick = "return confirm('確定刪除?')", @class = "btn btn-danger" })
                     </td>
                 </tr>

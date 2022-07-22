@@ -109,7 +109,7 @@
         }
 
         .slideInUp {
-            background-color: #616E83;
+            background-color: #171117;
             border: 0.2px #666;
             border-radius: 25px 25px 25px 25px;
             margin: 10px 5px 10px 5px;
@@ -140,9 +140,8 @@
 @using (Html.BeginForm())
 {
     <div>
-        <input type="button" value="推薦我醫生"/>
+        <input type="button" value="點我推薦醫生" onclick="location.href='@Url.ActionLink("SugDoc","Doctor")'"/>
     </div>
-    <br />
     <div class="muti-selector">
         <div class="select-field">
             <input type="text" name="" placeholder="篩選專長" class="input-selector" />
@@ -151,7 +150,7 @@
         </div>
         <div class="list">
             <label for="" class="task">
-                <input type="checkbox" class="check" onclick="CCC()" name="123" id="c" />
+                <input type="checkbox" class="checkAll" name="123" id="c" />
                 全選
             </label>
         </div>
@@ -163,7 +162,7 @@
         </div>
         <div class="list" id="list1">
             <label for="" class="task">
-                <input type="checkbox" />
+                <input type="checkbox" class="checkAll" />
                 全選
             </label>
         </div>
@@ -226,9 +225,7 @@
             document.querySelector('#down-arrow1').classList.toggle('rotate180')
         })
         loadDep();
-        //document.querySelector('.check').addEventListener('checked', () => {
-        //    loadDoc()
-        //})
+        
         function CCC() {
             if ($(event.target)[0].checked == true) {
                 loadDoc();
@@ -243,6 +240,33 @@
             if ($(event.target)[0].checked != true)
                 $('#txtKeyword').val="";
         }
+        $(function () {
+            //全選被按
+            $(".checkAll").click(function () {
+                var isCheck = $(this).prop("checked");
+                $(this).closest(".muti-selector").find("input[name='check']").prop("checked", isCheck);
+            });
+
+            $(".checkAllWrap input[name='check']").click(function () {
+
+                var el_checkAll = $(this).closest(".muti-selector").find(".checkAll");
+
+                var checkLength = $(this).closest(".muti-selector").find("input[name='check']:checked").length;// 每區塊目前被V的有幾個
+
+                var inputLength =
+                    $(this).closest(".muti-selector").find("input[name='check']").length; // 每區塊的核取框有多少
+
+
+                if (!$(this).prop("checked")) {
+                    el_checkAll.prop("checked", false);
+                } else {
+                    if (checkLength == inputLength) {
+                        el_checkAll.prop("checked", true);
+                    }
+                }
+            });
+
+        });
         @*讀取專長選單*@
         async function loadDep() {
 
@@ -263,7 +287,7 @@
                 const trtDs = await fetch('@Url.Content("~/Admin/AdminDoctor/Doc")' + `?depName=${depName}`).then(response => response.json());
                 trtDs.forEach((DoctorName) => {
                     name = `<label for="" class="task" id="${DoctorName}">
-                <input type="checkbox" class="check" name="${DoctorName}" onclick="DDD()" value="${DoctorName}"/>
+                <input type="checkbox" class="check1" name="${DoctorName}" onclick="DDD()" value="${DoctorName}"/>
                 ${DoctorName}
             </label>`;
                     document.querySelector('#list1').innerHTML+= name;
